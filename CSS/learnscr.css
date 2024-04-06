@@ -1,0 +1,233 @@
+html{
+    scroll-behavior: smooth;
+    overflow: hidden;
+    background: #101728;
+    font-family: 'Inter';
+}
+.body-container{
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: row;
+}
+.text-container{
+    flex-basis: 85%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.text-container .box-container{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    height: 95%;
+    border-radius: 45px;
+    background: #ffffff;
+}
+.text-container .box-container .top{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* align-items: center; */
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+    height: 60%;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
+}
+.hand_svg{
+    width: 450px;
+    height: 450px;
+}
+.alt_text{
+    background-color: #ff3c5f;
+    padding: 10px;
+    border-radius: 16px;
+    color: #ffff;
+}
+.text-container .box-container .top-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+    height: 90%;
+    margin-top: 20px;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
+}
+.text-container .box-container .top .top-text{
+    width: 97.5%;
+    height: 100%;
+    padding: 10px;
+}
+.text-container .box-container .top .top-text #ques_txt{
+    width: 98%;
+    height: 90%;
+    padding: 10px;
+    text-align: justify;
+    border: none;
+}
+.text-container .box-container .top .top-text #text_cont{
+    width: 98%;
+    height: 40%;
+    padding: 10px;
+    font-size: 1.5em;
+    text-align: justify;
+    border: 2px,solid;
+}
+button{
+    width: 75%;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    background: #CDB4DB;
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #2a4a70, #8ab5e5);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.6em 1.5em;
+}
+.text-container .box-container .bottom{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.keyboard_svg{
+    width: 60%;
+    height: 100%;
+}
+button:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+}
+button:active {
+    transform: scale(0.9) rotate(3deg);
+    background: radial-gradient( circle farthest-corner at 10% 20%,  #2a4a70 17.8%, #8ab5e5 100.2% );
+    transition: 0.5s;
+}
+@keyframes pulse512 {
+    0% {
+    box-shadow: 0 0 0 0 #8ab5e5;
+    }
+
+    70% {
+    box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+
+    100% {
+    box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}
+.cyberpunk-button {
+    background-color: #2a4a70;
+    color: #000000;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .cyberpunk-checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #2a4a70;
+    border-radius: 5px;
+    background-color: transparent;
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .cyberpunk-checkbox:before {
+    content: "";
+    background-color: #2a4a70;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .cyberpunk-checkbox:checked:before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .cyberpunk-checkbox-label {
+    font-size: 18px;
+    color: #2a4a70;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+  }
+
+  /* higlighter CSS */
+
+.hlta-container {
+    width: 98%;
+    height: 60%;
+    padding: 10px;
+    font-size: 28px;
+    font-family: 'Arial Rounded MT';
+    text-align: justify;
+    border: none;
+    position: relative;
+}
+
+.hlta-backdrop {
+    position: absolute;
+    overflow: hidden;
+    /* padding: 10px; */
+    border-color: transparent;
+}
+
+.hlta-highlight {
+    background: FFDAE2AA;
+    color: transparent; 
+}
+
+.hlta-container > .htla-textarea {
+    position: relative;
+    background: none transparent !important;
+}
+
+.hlta-highlight mark {
+    background-color: #bbb7ff;
+}
+
+@media (max-height:800px) {
+    .hand_svg{
+        width: 100%;
+        height: 100%;
+    }
+    .text-container .box-container .top .top-text #ques_txt{
+        font-size: 1em;
+    }
+}

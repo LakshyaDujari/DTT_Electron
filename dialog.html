@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Custom Dialog</title>
+  <style>
+    /* Add your custom CSS styles here */
+    /* Hide the default Electron icon */
+    .icon { display: none; }
+    /* Style the dialog content */
+    .dialog {
+      width: 400px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .message {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <div class="dialog">
+    <div class="title"></div>
+    <div class="message"></div>
+  </div>
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    ipcRenderer.on('dialog-options', (event, options) => {
+      const titleElement = document.querySelector('.title');
+      const messageElement = document.querySelector('.message');
+      const dialogElement = document.querySelector('.dialog');
+
+      titleElement.textContent = options.title;
+      messageElement.textContent = options.message;
+
+      dialogElement.classList.add(options.type);
+    });
+  </script>
+</body>
+</html>

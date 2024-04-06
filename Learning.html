@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="CSS/learning.css">
+    <meta charset="UTF-8">
+    <script type="module" src="./src/selection.js"></script>
+    <script src="./src/bundle.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTT</title>
+</head>
+<body>
+    <div class="body-container">
+        <section class = "nav-panel">
+            <img class ="logo" src="Image/Frame 1.svg" alt="logo">
+            <div class = "nav-tile" id="profile">
+                <img src="Image/profile_fill.svg" alt="profile">
+                <h2>Profile</h2>
+            </div>
+            <div class = "nav-tile" id="learn">
+                <img src="Image/learning_fill.svg" alt="learning">
+                <h2>Learning</h2>
+            </div>
+            <div class = "nav-tile" id="practice">
+                <img src="Image/practice_fill.svg" alt="Practice">
+                <h2>Practice</h2>
+            </div>
+            <div class = "about-tile" id="aboutus">
+                <img src="Image/about-usb.png" alt="about us">
+                <h2>About Us</h2>
+            </div>
+        </section>
+        <section class = "selection-panel">
+            <div class="mode-container shadow">
+                <section class ="lang">
+                    <h1>Select Language</h1>
+                    <label>
+                        <input type="radio" id="eng" value="English_Exercise" name="lang">
+                        <span>English</span>
+                    </label>
+                    <label>
+                        <input type="radio" id="hin" value="Hindi_Exercise" name="lang" checked ="">
+                        <span>Hindi</span>
+                    </label>
+                        <br>
+                </section>
+                <section class="time-sel">
+                    <h1>Select Time</h1>
+                    <Select name="time_val_class" id="time_val">
+                        <option value="1">1 min</option>
+                        <option value="2">2 min</option>
+                        <option value="3">3 min</option>
+                        <option value="4">4 min</option>
+                        <option value="5">5 min</option>
+                        <option value="6">6 min</option>
+                        <option value="7">7 min</option>
+                        <option value="8">8 min</option>
+                        <option value="9">9 min</option>
+                        <option value="10">10 min</option>
+                        <option value="15">15 min</option>
+                        <option value="20">20 min</option>
+                        <option value="25">25 min</option>
+                        <option value="30">30 min</option>
+                    </Select>
+                    <br><br>
+                    <!-- <label for="time_val"></label> -->
+                </section>
+                <section class="exam">
+                    <h1>Select Exam</h1>
+                    <form class = "exam_form">
+                        <label>
+                            <input type="radio" id="ex1" value="ex1" name="exam_type" checked="">
+                            <span>Raj HC LDC</span>
+                        </label>
+                        <label>
+                            <input type="radio" id="ex2" value="ex2" name="exam_type">
+                            <span>RMSSB LDC</span>
+                        </label>
+                        <label>
+                            <input type="radio" id="ex3" value="ex3" name="exam_type">
+                            <span>RPSC LDC</span>
+                        </label>
+                        <label>
+                            <input type="radio" id="ex4" value="ex4" name="exam_type">
+                            <span>IA</span>
+                        </label>
+                        <label>
+                            <input type="radio" id="ex5" value="ex5" name="exam_type">
+                            <span>CRPF</span>
+                        </label>
+                        <label>
+                            <input type="radio" id="ex6" value="ex6" name="exam_type">
+                            <span>Most Exams</span>
+                        </label>
+                        <label>
+                            <input type="radio" id="ex7" value="ex7" name="exam_type">
+                            <span>Steno</span>
+                        </label>
+                    </form>
+                </section>
+            </div>
+            <div class="exam-container shadow">
+                <section class="top">
+                    <h1>Select Exercise</h1>
+                    <Select name="font_val" id="font_val">
+                        <option value="">select Font</option>
+                    </Select>
+                    <Select name="sheet_val" id="sheet_val">
+                        <option value="">select Exersice</option>
+                    </Select>
+                    <div class = "audio_control" id = 'audio_ctrl'>
+                        <audio id="audioPlayer" controls="false">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <img class="volume_up" id = "vol_up" src="./Image/down.svg" alt="font_up">
+                        <span id="speedLabel">1x</span>
+                        <img class="volume_down" id = "vol_down" src="./Image/down.svg" alt="font_down">
+                        <!-- <input type="range" id="playbackSpeed" min="0.5" max="2" step="0.05" value="1">
+                        <span id="speedLabel">1x</span> -->
+                    </div>
+                </section>
+                <section class="bottom">
+                    <textarea id="txtarea" disabled>
+                    </textarea>
+                </section>
+            </div>
+            <div class="btn-container shadow">
+                <button id="test_btn" title="Start test"> Start Test</button>
+                <button id="learn_btn" title="Learn How to Type"> Learn</button>
+                <input type="file" id="fileInput" style="display: none;">
+                <button id="browser_btn" title="To select Exercise from other Location">Exercise Browser</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

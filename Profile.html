@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+        <script type="module" src="./src/profile.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="CSS/profile.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DTT</title>
+        <body>
+            <div class="container">
+                <div class="base_layer">
+                    <div class ="flex-container">
+                        <section class="flex-item item-1">
+                            <img class = "cimg" id = "close_btn" src="Image/close.svg" alt = "close_btn">
+                            <script>
+                                const closebtn = document.getElementById('close_btn');
+                                closebtn.addEventListener('click', () =>{
+                                    window.location.href = "index.html";
+                                });
+                            </script>
+                        </section>
+                        <section class="flex-item item-2">
+                            <img class = "pimg" src="Image/profile_fill.svg" alt="profile_image">
+                        </section>
+                        <section class="flext-item item-3">
+                            <form>
+                                <div class="field">
+                                    <input class="input-field" id="uname" type="text" placeholder="Name" name="uname">
+                                </div>
+                                <div class="field">
+                                    <input class="input-field" id="rollnum" type="text" placeholder="Roll No." name="rollnum">
+                                </div>
+                                <div class="field">
+                                    <input id="macid" class="input-field" type="text" placeholder="Machine Id" name="macid">
+                                </div class="field">
+                                <div class="field">
+                                    <input class="input-field" id="key_placeholder" type="text" placeholder="Key" name="key">
+                                </div>
+                                <button id = "submit" >Register</button>
+                            </form>
+                        </section>
+                </div>
+            </div>
+        </body>
+    </head>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="CSS/testscr.css">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <script src="src/bundle.js"></script>
+    <script type="module" src="src/selopt.js"></script>
+    <script type="module" src="src/test.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTT</title>
+</head>
+<body>
+    <div class = "body-container">
+        <section class = "text-container">
+            <div class ="box-container">
+                <div class="top">
+                    <div class = "top-header">
+                        <div class = "header-left">
+                            <h1 id="rwords">Right Words:</h1>
+                        </div>
+                        <div class = "header-center">
+                            <button id="learn_btn" class="learn_btn">How to type?</button>
+                        </div>
+                        <div class = "header-right">
+                            <h1 id="wwords">Wrong Words:</h1>
+                        </div>
+                    </div>
+                    <div class = "top-text">
+                        <textarea id="ques_txt" disabled>
+                        </textarea>
+                    </div>
+                </div>
+                <div class = "bottom">
+                    <textarea id="text_cont" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off"></textarea>
+
+                </div>
+            </div>
+        </section>
+        <section class = "selection-container">
+            <div class = "time-container">
+            <h1 id="time_id">0:00 Time Left</h1>
+            </div>
+            <div class = "font-container">
+                <h1>Font Size</h1>
+                <div class ="font-selector">
+                    <img class="font_up" id = "font_up" src="Image/down.svg" alt="font_up">
+                    <h3 class ="cur_font" id = "cur_font">1</h3>
+                    <img class="font_down" id = "font_down" src="Image/down.svg" alt="font_down">
+                </div>
+            </div>
+            <div class = "settings-container">
+                <h1>Settings</h1>
+                <label class="backspace">
+                    <input type="radio" name="backspace_set" value="0" checked ="">
+                    <span>No Backspace</span>
+                </label>
+                <label class="backspace">
+                    <input type="radio" name="backspace_set" value="1">
+                    <span>Current word Backspace</span>
+                </label>
+                <label class="backspace">
+                    <input type="radio" name="backspace_set" value="2">
+                    <span>Full Backspace</span>
+                </label>
+                <label class="cyberpunk-checkbox-label">
+                    <input class="cyberpunk-checkbox" type="checkbox" id="highlight" checked="">
+                    <span>Highlight Word</span>
+                </label>
+                <label class="cyberpunk-checkbox-label">
+                    <input class="cyberpunk-checkbox" type="checkbox" id="full_scr">
+                    <span>Full Screen</span>
+                </label>
+                <label class="cyberpunk-checkbox-label">
+                    <input class="cyberpunk-checkbox" type="checkbox" id="scroll">
+                    <span>Auto Scroll</span>
+                </label>
+                <label class="cyberpunk-checkbox-label">
+                    <input class="cyberpunk-checkbox" type="checkbox" id="sound">
+                    <span>Keyboard Sound</span>
+                </label>
+                <!-- <label class="cyberpunk-checkbox-label">
+                    <input class="cyberpunk-checkbox" type="checkbox" id="score_type" value="2">
+                    <span>66.66 Marks</span>
+                </label>
+                <label class="cyberpunk-checkbox-label">
+                    <input class="cyberpunk-checkbox" type="checkbox" id="score_type" value="2">
+                    <span>59.25 Marks</span> -->
+                </label>
+                <select aria-label="Color Selector" id="col_sel" name="col_sel">
+                    <option value="">Highlighter Background</option>
+                </select>
+            </div>
+            <div class = "button-container">
+                <button id="submit_btn">Submit</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

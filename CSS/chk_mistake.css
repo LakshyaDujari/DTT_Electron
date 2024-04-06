@@ -1,0 +1,56 @@
+html{
+    scroll-behavior: smooth;
+    background: #ffffff;
+    font-size: 1.5rem;
+    font-family: 'Inter';
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    padding: 10px; /* Add padding to both headers and data cells */
+    text-align: left;
+    border: 2px solid #000000;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternate row background color */
+}
+button{
+    font-weight: bold;
+    text-align: center;
+    background: #CDB4DB;
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #2a4a70, #8ab5e5);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.6em 1.5em;
+}
+button:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+}
+button:active {
+    transform: scale(0.9) rotate(3deg);
+    background: radial-gradient( circle farthest-corner at 10% 20%,  #2a4a70 17.8%, #8ab5e5 100.2% );
+    transition: 0.5s;
+}
+@keyframes pulse512 {
+    0% {
+    box-shadow: 0 0 0 0 #8ab5e5;
+    }
+
+    70% {
+    box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+
+    100% {
+    box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}

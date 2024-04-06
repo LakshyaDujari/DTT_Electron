@@ -1,0 +1,175 @@
+html {
+    scroll-behavior: smooth;
+    font-family: 'Inter';
+    color: #ffffff;
+    overflow: hidden;
+}
+body {
+    background: #101728;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+::-webkit-scrollbar {
+    width: 0em;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #101728;
+}
+.body-container{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 100%;
+    width: 100%;
+    margin-bottom: 50px;
+}
+.body-container .header{
+    display: flex;
+    position: relative;
+    top: 10%;
+    width: 100svh;
+    height: 5svh;
+    margin-top: 15px;
+    justify-content: flex-end;
+}
+.body-container .header img{
+    max-width: 10%;
+    max-height: 100%;
+    transform: scale(1);
+    opacity: .8;
+    transition: all .2s ease;
+}
+.body-container .header .cimg:active{
+    transform: scale(.9);
+    transition: all .3s ease;
+}
+.body-container .header .cimg:hover{
+    opacity: 1;
+    transition: all .3s ease;
+}
+.body-container .image{
+    flex-basis: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    bottom: 47px;
+    position: relative;
+}
+.body-container .image img{
+    width: 100%;
+    height: 65%;
+}
+.body-container .text{
+    flex-basis: 90%;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    bottom: 255px;
+}
+.body-container .text .base-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 60%;
+    height: 100%;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.body-container .base-container .container{
+    display: flex;
+    background: #ffffff;
+    border-radius: 45px;
+    width: 95%;
+    height: 90%;
+    box-shadow: inset 0 0 5px grey;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.body-container .base-container .container .left{
+    flex-basis: 20%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    position: relative;
+}
+.body-container .base-container .container .left img{
+    width: 100%;
+    height: 50%;
+}
+.body-container .base-container .container .center{
+    flex-basis: 60%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    color: #000000;
+    justify-content: center;
+    align-items: center;
+}
+.body-container .base-container .container .center .top{
+    margin-top: 30px;
+    position: relative;
+    text-align: center;
+    /* border-bottom:  2.5x solid gray; */
+    border-bottom: 2px solid gray;
+}
+.body-container .base-container .container .center .top h2{
+    font-weight: normal;
+}
+.body-container .base-container .container .center .bottom{
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+}
+.body-container .base-container .container .right{
+    flex-basis: 20%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-right: 20px;
+    position: relative;
+}
+.body-container .base-container .container .right img{
+    width: 100%;
+    height: 75%;
+}
+.glow::before , .glow::after{
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    background: linear-gradient( 45deg,#e6fb04 , #ff6600 , #00ff66 , #00ffff , #ff00ff , #ff0099 , #6e0dd0 , #ff3300 , #099fff);
+    background-size: 1000%;
+    width: calc(100% + 5px);
+    height: calc(100% + 5px);
+    z-index: -1;
+    animation: animate 50s linear infinite;
+}
+.glow::after{
+    filter: blur(100px);
+}
+.glow::before{
+    filter: blur(100px);
+}
+@keyframes animate{
+    0%{
+        background-position: 0 0;
+    }
+    50%{
+        background-position: 400% 0;
+    }
+    100%{
+        background-position: 0 0;
+    }
+}

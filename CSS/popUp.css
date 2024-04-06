@@ -1,0 +1,20 @@
+html{
+    scroll-behavior: smooth;
+    overflow: hidden;
+    background: #ffffff;
+    font-size: 1.5rem;
+    font-family: 'Inter';
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    padding: 10px; /* Add padding to both headers and data cells */
+    text-align: left;
+    border: 2px solid #000000;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternate row background color */
+}

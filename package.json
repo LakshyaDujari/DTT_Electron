@@ -1,0 +1,49 @@
+{
+  "name": "dtt_typing_solution",
+  "productName": "DTT_Typing",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "build": "electron-packager .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "author": "lakshyadujari",
+  "license": "ISC",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
+    "font-list": "^1.4.5",
+    "fontkit": "^2.0.2",
+    "fs": "^0.0.1-security",
+    "jquery": "^3.6.4",
+    "mammoth": "^1.6.0",
+    "node-machine-id": "^1.1.12",
+    "path": "^0.12.7",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "python-shell": "^5.0.0",
+    "sqlite3": "^5.1.6",
+    "webpack": "^5.81.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.4.2",
+    "@electron-forge/maker-deb": "^6.4.2",
+    "@electron-forge/maker-rpm": "^6.4.2",
+    "@electron-forge/maker-squirrel": "^6.4.2",
+    "@electron-forge/maker-zip": "^6.4.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.4.2",
+    "electron": "^26.2.1",
+    "electron-builder": "^24.6.4",
+    "webpack-cli": "^5.0.2"
+  },
+  "build": {
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    }
+  },
+  "description": "Typing Solutions for Rajasthan Goverment Exam"
+}

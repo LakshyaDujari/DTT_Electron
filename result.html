@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./CSS/result.css">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <script type="module" src="./src/result.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTT</title>
+</head>
+<body>
+    <section class="header">
+        <h1>Candidate Result Sheet - Typing Test</h1>
+        <button id="chk_mis">Check Mistakes.</button>
+        <div class = "header-details">
+            <div class = "col1">
+                <div class = "row">
+                    <h2>Time:&nbsp;&nbsp;&nbsp;</h2>
+                    <h2 id = "time"> 08-May-23 05.58</h2>
+                </div>
+                <div class = "row">
+                    <h2>Language: &nbsp;&nbsp;</h2>
+                    <h2 id = "lang">English</h2>
+                </div>
+            </div>
+            <div class = "col2">
+                <div class="row">
+                    <h2>Name:&nbsp;&nbsp;</h2>
+                    <h2 id = "sname">Lakshya</h2>
+                </div>
+                <div class="row">
+                    <h2>Roll:&nbsp;&nbsp;</h2>
+                    <h2 id = "roll">22MCI10184</h2>
+                </div>
+            </div>
+            <div class = "col3">
+                <div class="row">
+                    <h2>Test Time:&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+                    <h2 id = "tst_time">04:00</h2>
+                </div>
+                <div class="row">
+                    <h2>Time Taken:&nbsp;&nbsp;</h2>
+                    <h2 id = "time_taken">00.33</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class ="mark-cal">
+        <div class = "type1">
+            <h1>Calculation Method #1: One word = 5 key strokes/characters</h1>
+            <div class="row">
+                <h3 id = "f_mistakes">Full Mistakes&nbsp;&nbsp;0</h3>
+                <h3 id ="ndph">Net DPH:&nbsp;&nbsp;0.00</h3>
+            </div>
+            <div class = "row">
+                <h3 id="h_mistakes">Half Mistakes:&nbsp;&nbsp;0</h3>
+                <div style="background-color: yellow; width:fit-content">
+                    <h3 id="n_speed" style="color: #ff3c5f;">Net Speed[WPM]:&nbsp;&nbsp;00.00</h3>
+                </div>
+            </div>
+            <div class="row">
+                <h3 id="penalties">Penalties:&nbsp;&nbsp;0</h3>
+                <h3 id="g_speed">Gross Speed[WPM]:&nbsp;&nbsp;0</h3>
+            </div>
+            <div class="row">
+                <h3 id="g_error">Gross Errors(Full + (Half/2) + Penalties):&nbsp;&nbsp;0</h3>
+                <div style="background-color: yellow; width:fit-content">
+                    <h3 id ="acc" style="color: #ff3c5f;" >Accuracy:&nbsp;&nbsp;00.00%</h3>
+                </div>
+                <!-- <h3 id ="ndph">Net DPH:&nbsp;&nbsp;0.00</h3> -->
+            </div>
+            <div class="row">
+                <h3 id="e_strokes">Error Strokes(Gross Error * 5):&nbsp;&nbsp;0</h3>
+                <h3 id ="m_50">Marks Out of 50:&nbsp;&nbsp;0.00</h3>
+            </div>
+            <div class="row">
+                <h3 id="b_space_cnt">Backspace:&nbsp;&nbsp;0</h3>
+                <h3 id ="m_25">Marks Out of 25:&nbsp;&nbsp;0.00</h3>
+            </div>
+        </div>
+        <div class = "type2">
+            <h1>Calculation Method #2: Group of Character seperated by blank spaces in a word</h1>
+            <div class="row">
+                <h3 id = "word_count">Total Words:&nbsp;&nbsp;0</h3>
+                <div style="background-color: yellow; width:fit-content">
+                    <h3 id="net_wpm2" style="color: #ff3c5f;">Net Speed[WPM]:&nbsp;&nbsp;0.00</h3>
+                </div>
+            </div>
+            <div class = "row">
+                <h3 id="Right_words">Right Words:&nbsp;&nbsp;0</h3>
+                <h3 id="gross_wpm2">Gross Speed[WPM]:&nbsp;&nbsp;0.00</h3>
+            </div>
+            <div class="row">
+                <h3 id="Wrong_words">Wrong Typed Words:&nbsp;&nbsp;0</h3>
+                <div style="background-color: yellow; width:fit-content">
+                    <h3 id ="acc2" style="color: #ff3c5f;">Accuracy:&nbsp;&nbsp;00.00%</h3>
+                </div>
+            </div>
+            <div class="row">
+                <h3 id="backspace_count2">Backspace:&nbsp;&nbsp;0</h3>
+                <h3 id = "marks">Marks (out of 25):&nbsp;&nbsp;00.00</h3>
+            </div>
+            <h4>To get 25 marks you need 40 words/min speed in hindi and 50 words/min in english (as per RSSB LDC Exam 2023)</h4>
+        </div>
+    </section>
+    <section class ="ans_txt">
+        <div class = "txt-header">
+            <h1>Error Representations: Wrong Words(Right Words), --Missed, +Extra</h1>
+        </div>
+        <div class="txt_container">
+            asdfgf ;lkjhj asdfgf ;lkjhj asdfgf ;lkjhj asdfgf ;lkjhj <span style="background-color: #ff3c5f; width:fit-content">asdfgf </span>;lkjhj asdfgf ;lkjhj asdfgf ;lkjhj asdfdgf ;lkjhj asdfgf ;lkjhj asdfgf ;lkjhj asdfgf ;lkjhj
+        </div>
+    </section>
+</body>
+</html>
