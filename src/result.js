@@ -191,7 +191,7 @@ ipcRenderer.on('result-obj',(event, data,usr_info) =>{
     result_obj = data;
     name_txt.textContent = usr_info.name;
     roll_txt.textContent = usr_info.roll_no;
-    ans_txtarea.textContent = result_obj.ans_arr;
+    ans_txtarea.innerHTML = result_obj.final_ans.join(' ');
     let now = new Date();
     let year = now.getFullYear();
     let month = String(now.getMonth() + 1).padStart(2, '0');
@@ -229,7 +229,6 @@ ipcRenderer.on('result-obj',(event, data,usr_info) =>{
             type2_function();
             break;
     }
-    ans_txtarea.innerHTML = result_obj.final_ans.join(' ');
 });
 chk_mist.addEventListener(('click'),()=>{
     let request = {

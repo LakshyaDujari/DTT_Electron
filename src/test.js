@@ -208,44 +208,47 @@ function checking_mistakes(ans_word,ques_word){//returns .5,1
                                 */
                                switch(charCode){
                                 case 216:
-                                    if(letter_wchk[j].toLowerCase() + letter_wchk[j+1].toLowerCase() === 'dz'){
+                                    if(letter_wchk[j] + letter_wchk[j+1] === 'dz'){
                                         j += 2;
                                         continue;
                                     }
                                     break;
                                 case 230:
-                                    if(letter_wchk[j].toLowerCase() + letter_wchk[j+1].toLowerCase() === 'nz'){
+                                    if(letter_wchk[j] + letter_wchk[j+1] === 'nz'){
                                         j += 2;
                                         continue;
                                     }
                                     break;
                                 case 231:
-                                    if(letter_wchk[j] + letter_wchk[j+1].toLowerCase() === 'Iz'){
+                                    if(letter_wchk[j] + letter_wchk[j+1] === 'iz'){
                                         j += 2;
                                         continue;
                                     }
                                     break;
                                 case 193:
-                                    if(letter_wchk[j].toLowerCase() + letter_wchk[j+1].toLowerCase() === 'dz'){
+                                    if(letter_wchk[j] + letter_wchk[j+1] === 'dz'){
                                         j += 2;
                                         continue;
                                     }
                                     break;
                                 case 209:
-                                    if(letter_wchk[j].toLowerCase() + letter_wchk[j+1].toLowerCase() === 'dz'){
+                                    if(letter_wchk[j] + letter_wchk[j+1] === 'dz'){
                                         j += 2;
                                         continue;
                                     }
                                     break;
                                 case 151:
-                                    if(letter_wchk[j].toLowerCase() + letter_wchk[j+1].toLowerCase() === 'dz'){
+                                    if(letter_wchk[j] + letter_wchk[j+1] === 'dz'){
                                         j += 2;
                                         continue;
                                     }
                                     break;
+                                default:
+                                    j+=2;
+                                    break;
                                }
                             }
-                            if(letter_rchk[i].toLowerCase() == letter_wchk[j].toLowerCase()){
+                            if(letter_rchk[i] == letter_wchk[j]){
                                 j++;
                             }
                         }catch{
@@ -320,6 +323,7 @@ function wrongWordUpdate(wrong_word,right_word,fine){
         final_ans.push(str2);
         for(let i=0;i<fine.penalty-1;i++){
             str1 = ques_arr.shift();
+            str1 = str1.replace(/</g, "&lt;").replace(/>/g,"&gt;");
             str2 = '<span style="background-color: #ff3c5f; width:fit-content"><span style="font-family:Arial;">{-}</span>' + str1 + "</span> ";
             // str2 = '';
             // if(i==fine-2){
@@ -372,9 +376,12 @@ function rightWordUpdate(word){
     right_arr.push(word);
     // console.log(typeof(word));
     if(typeof(word) == 'object'){//to pust the last correct of skipped word which is correct 
-        final_ans.push(word[0]);
+        let str1 = word[0];
+        str1 = srt1.replace(/</g, "&lt;").replace(/>/g,"&gt;");
+        final_ans.push(str1);
     }else{
-        final_ans.push(word);
+        let str1 = word.replace(/</g, "&lt;").replace(/>/g,"&gt;");
+        final_ans.push(str1);
     }
     rword_txt.textContent = "Right Words: " +right_arr.length;
 }

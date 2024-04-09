@@ -32,27 +32,23 @@ class selection_opt {
     this.learn_char_count = learn_char_count;
   }
 }
-// // run this as early in the main process as possible
-// if (require('electron-squirrel-startup')) app.quit();
 // package Declaration
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const menuBarVisibility = false;
+const nodeIntegration = true;
+const contextIsolation = false;
+const { app, BrowserWindow, ipcMain, dialog ,globalShortcut} = require('electron');
 const path = require('path');
 const crypto = require('crypto');
-const { Console } = require('console');
-const { event, Callbacks, data } = require('jquery');
-const { isMainFrame } = require('process');
-const { request } = require('http');
 const sqlite3 = require('sqlite3').verbose();
 const mac_promice = require('node-machine-id').machineId();
 const logopath = path.join('./Image/ICO.png');
 // constant Declaration
+let comp_hex;  //constant do not change2
 const algorithm = 'AES-256-CBC';
 const helper = 'tamtob-cibbe6-cakHav';
 let usr_data = new user_data();
 const prof_resp = new main_response();
-let db; //= new sqlite3.Database('./database.sqlite');
-// let db = new sqlite3.Database('./database.sqlite');
-let comp_hex;  //constant do not change2
+let db;
 let mainWindow;
 let testWindow;
 let chkWindow;
@@ -65,11 +61,12 @@ createWindow() {
     icon: logopath,
     // frame: false,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: nodeIntegration,
+      contextIsolation: contextIsolation,
     },
-
   });
+  // Hide the menu bar
+mainWindow.setMenuBarVisibility(menuBarVisibility)
 ipcMain.on('howtotype',(event,sel_lang, sel_time, sel_exam, sel_font, sel_exr,sel_scr,learn_count,learn_txt,learn_char_count) =>{
   try{
     let test_obj = new selection_opt(sel_lang, sel_time, sel_exam, sel_font, sel_exr,learn_count,learn_txt,learn_char_count);
@@ -83,11 +80,18 @@ ipcMain.on('howtotype',(event,sel_lang, sel_time, sel_exam, sel_font, sel_exr,se
           height: 1800,
           icon: logopath,
           webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
+            nodeIntegration: nodeIntegration,
+            contextIsolation: contextIsolation,
           },
         });
+        // Hide the menu bar
         popWin.loadFile('learnscr.html');
+        if(menuBarVisibility){
+          popWin.setMenuBarVisibility(menuBarVisibility)
+          popWin.webContents.on('devtools-opened', () => {
+            popWin.webContents.closeDevTools();
+          });
+        }
         popWin.webContents.on('did-finish-load', () => {
           popWin.webContents.send('load-page', test_obj);
         });
@@ -106,11 +110,18 @@ ipcMain.on('mistake_popup',(event,request)=>{
       height:300,
       icon: logopath,
       webPreferences:{
-        nodeIntegration:true,
-        contextIsolation:false,
+        nodeIntegration:nodeIntegration,
+        contextIsolation:contextIsolation,
       }
     });
+    // Hide the menu bar
     popUp.loadFile('popUp.html');
+    if(menuBarVisibility){
+      popUp.setMenuBarVisibility(menuBarVisibility)
+      popUp.webContents.on('devtools-opened', () => {
+        popUp.webContents.closeDevTools();
+      });
+    }
     popUp.webContents.on('did-finish-load',() =>{
       popUp.webContents.send('load-page',request);
     });
@@ -125,13 +136,20 @@ ipcMain.on('chk_mistake_req', (event,request) =>{
     height: 650,
     icon: logopath,
     webPreferences:{
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: nodeIntegration,
+      contextIsolation: contextIsolation,
     }
   });
   try{
+    // Hide the menu bar
     chkWindow.loadFile('chk_mistake.html'); 
-           // Send the data to the new windowa
+    if(menuBarVisibility){
+      chkWindow.setMenuBarVisibility(menuBarVisibility)
+      chkWindow.webContents.on('devtools-opened', () => {
+        chkWindow.webContents.closeDevTools();
+      });
+    }
+    // Send the data to the new windowa
     chkWindow.webContents.on('did-finish-load', () => {
       chkWindow.webContents.send('load-page', request);
     }); 
@@ -139,8 +157,14 @@ ipcMain.on('chk_mistake_req', (event,request) =>{
     console.error(e);
   }
 });  
-
+  // Hide the menu bar
   mainWindow.loadFile('index.html');
+  if(menuBarVisibility){
+    mainWindow.setMenuBarVisibility(menuBarVisibility)
+    mainWindow.webContents.on('devtools-opened', () => {
+      mainWindow.webContents.closeDevTools();
+    });
+  }
   // Listen for a message fromthe renderer process
   ipcMain.on('selection-renderer', (event, sel_lang, sel_time, sel_exam, sel_font, sel_exr,sel_scr,learn_count,learn_txt,learn_char_count) => {
     let test_obj = new selection_opt(sel_lang, sel_time, sel_exam, sel_font, sel_exr,learn_count,learn_txt,learn_char_count);
@@ -154,8 +178,8 @@ ipcMain.on('chk_mistake_req', (event,request) =>{
           height: 1800,
           icon: logopath,
           webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
+            nodeIntegration: nodeIntegration,
+            contextIsolation: contextIsolation,
           },
         });
         // change added on 20.01.2024
@@ -173,6 +197,13 @@ ipcMain.on('chk_mistake_req', (event,request) =>{
           default:
             break;
         }
+        // Hide the menu bar
+        if(menuBarVisibility){
+          testWindow.setMenuBarVisibility(menuBarVisibility)
+          testWindow.webContents.on('devtools-opened', () => {
+            testWindow.webContents.closeDevTools();
+          });
+        }
         // Send the data to the new window
         testWindow.webContents.on('did-finish-load', () => {
           testWindow.webContents.send('load-page', test_obj);
@@ -187,7 +218,11 @@ ipcMain.on('chk_mistake_req', (event,request) =>{
 }
 app.on('ready', ()=>{
   createWindow();
+    globalShortcut.register('CommandOrControl+Shift+I', () => {
+      return menuBarVisibility;
+    });
     // Create or open a SQLite database fild
+    // let directoryPath = path.join(app.getPath('userData'), 'database.db');
     var directoryPath = path.join(__dirname, "database.db");
     db = new sqlite3.Database(directoryPath,sqlite3.OPEN_READWRITE,async (err) => {
       if (err) {
@@ -199,7 +234,7 @@ app.on('ready', ()=>{
             console.log('Created a new database');
               // Call the function to start performing database tasks
             db_table_create();  
-          }
+          } 
         });
       } else {
         console.log('Connected to the database');
@@ -208,7 +243,13 @@ app.on('ready', ()=>{
       }
     });
 });
+app.on('will-quit', () => {
+  // Unregister the shortcut.
+  globalShortcut.unregister('CommandOrControl+Shift+I')
 
+  // Unregister all shortcuts.
+  globalShortcut.unregisterAll()
+})
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit();
@@ -445,10 +486,7 @@ async function createHash(input) {
     resolve(hash);
   });
 }
-async function decodeHash(hash) {
-  const buffer = Buffer.from(hash, 'hex');
-  return buffer.toString('utf8');
-}
+
 function value_check(number) {
   if (number >= 10 && number <= 200) {
     return number;
