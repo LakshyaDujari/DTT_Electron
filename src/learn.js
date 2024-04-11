@@ -949,10 +949,25 @@ ipcRenderer.on('load-page', (event, data) => {
     question_txt.style.fontFamily = sel_obj.ex_font;
     ans_txt.style.fontFamily = sel_obj.ex_font;
     question_txt.style.fontSize = fontSize.toFixed(2) + "px";
+    ans_txt.focus();
 });
 
 ans_txt.addEventListener('keyup', function(event) {
     delete keysPressed[event.key]; // Remove the released key from the keysPressed object
+});
+ans_txt.addEventListener('input', function(event) {
+    if(keysPressed['Alt']){
+        if(event.data === ques_arr2[curr_word_index][cur_char_index]){
+            updateChar();
+            alt_handle = [false,null];
+            printCharInAltText(charCode);
+            changeAlt_Shit_key(ques_arr2[curr_word_index][cur_char_index].charCodeAt(0));
+            if(highlight_chk){
+                highlight_text();
+            }
+            return;
+        }   
+    }
 });
 // event on key press
 ans_txt.addEventListener("keydown",function(event){
@@ -968,7 +983,16 @@ ans_txt.addEventListener("keydown",function(event){
                 case "Alt":
                     let charCode = ques_arr2[curr_word_index][cur_char_index].charCodeAt(0);
                     if(charCode > 126){
-                        bool = false;
+                        keysPressed[event.key] = true;
+                        if(!event.repeat){
+                            if( Object.keys(keysPressed).length > 1 ){
+                                if(alt_handle[0]){
+                                    altMap(alt_handle[1],false)
+                                    return;
+                                }
+                            }
+                        }
+                        return;
                     }
                     break;
                 case " ":
@@ -976,6 +1000,8 @@ ans_txt.addEventListener("keydown",function(event){
                         word_count++;
                         curr_word_index++;
                         updateCharcheck();
+                        printCharInAltText(ques_arr2[curr_word_index][cur_char_index].charCodeAt(0));
+                        changeAlt_Shit_key();
                         bool = false;
                         space_check = false;
                         if(highlight_chk){
@@ -1009,8 +1035,8 @@ ans_txt.addEventListener("keydown",function(event){
         }
     }
     updateChar();
-    printCharInAltText();
-    changeAlt_Shit_key();
+    printCharInAltText(charCode);
+    changeAlt_Shit_key(ques_arr2[curr_word_index][cur_char_index].charCodeAt(0));
     if(highlight_chk){
         highlight_text();
     }
@@ -1031,7 +1057,7 @@ function updateChar(){
         return;
     }
 }
-function printCharInAltText(){
+function printCharInAltText(charCode){
     if(alt_handle[0]){
         alt_tet_handle.innerText = "ALT + 0" + charCode; 
     }
