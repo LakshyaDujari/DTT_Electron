@@ -53,8 +53,7 @@ let mainWindow;
 let testWindow;
 let chkWindow;
 let popWin;
-function 
-createWindow() {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1800,
     height: 1800,

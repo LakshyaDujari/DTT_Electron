@@ -4,145 +4,38 @@ import { selection_opt } from './selopt.js';
 // text highlight class
 class textHighlight {
 
-    constructor(ele,font) {
-        let styles = window.getComputedStyle(ele);
-        this.origBkgColor = styles.backgroundColor;
+    constructor(font,ques_arr,htmlElement,color){
         if(font == "Hindi_Exercise"){
             this.fontFamily = '\"Kruti Dev 010\"';
+        }else{
+            this.fontFamily = 'Calibri';
         }
-        this.ele = ele;
-        this.isTextArea = this.ele.tagName == 'TEXTAREA';
-        this.searchArg = '';
-        this.char_index = null;
-        this.ele_index = null;
-        this.sensitive = false;
-
-        this.handlers = {
-            input: this.#inputHandler.bind(this),
-            scroll: this.#scrollHandler.bind(this)
-        }
-
-        this.ele.classList.add('htla-textarea');
-        this.ele.addEventListener('input', this.handlers.input);
-        this.ele.addEventListener('scroll', this.handlers.scroll);
-
-        let nodeCont = document.createElement('div');
-        nodeCont.classList.add('hlta-container');
-        this.container = nodeCont;
-
-        let nodeBack = document.createElement('div');
-        nodeBack.classList.add('hlta-backdrop');    
-        this.backdrop = nodeBack; 
-
-        let nodeHilite = document.createElement('div');
-        nodeHilite.classList.add('hlta-highlight');  
-        this.hilite = nodeHilite;
-
-        this.ele.parentNode.insertBefore(nodeCont, this.ele.nextSibling);
-        this.backdrop.append(this.hilite);
-        this.container.append(this.backdrop);
-        this.container.appendChild(this.ele);   
-
-        let obs = new ResizeObserver(this.#resizeObs.bind(this)).observe(this.ele);
-        this.#inputHandler();
+        this.ele = htmlElement;
+        this.highlight_color = color;
+        this.ques_arr = ques_arr.slice();
+        this.question_txt = ques_arr.join(' ');
+        this.question_txt = this.question_txt.replace(/</g, "&lt;").replace(/>/g,"&gt;");
+        this.ele.innerHTML = this.question_txt;
+        this.ele.style.fontFamily = this.fontFamily;
     }
-    
-    search(arg, sensitive,char_index,ele_index) {
-        this.searchArg = arg;
-        this.ele_index = ele_index;
-        this.char_index = char_index;
-        this.sensitive = !!sensitive;
-        this.#inputHandler();
+    changeColor(color){
+        this.highlight_color = color;
     }
-
-    clear() { 
-        this.searchArg  = '';
-        this.hilite.innerHTML = this.hilite.textContent;
-    }
-
-    destroy() {
-        this.ele.removeEventListener('input', this.handlers.input);
-        this.ele.removeEventListener('scroll', this.handlers.scroll);
-
-        this.container.parentNode.insertBefore(this.ele, this.container);
-        while (this.container.firstChild) {
-            this.container.removeChild(this.container.lastChild);
-        }
-        this.container.remove();
-    }
-
-    #resizeObs() {
-        let styles = window.getComputedStyle(this.ele);
-        let width = this.ele.scrollWidth; 
-        let height = this.ele.offsetHeight;
-        let css= `width: ${width}px; height: ${height}px; margin: ${styles.marginTop} ${styles.marginRight} ${styles.marginBottom} ${styles.marginLeft}; 
-            background-color: ${this.origBkgColor}; `; 
-        this.backdrop.style.cssText = css;
-        this.#copyStyles(this.ele, this.hilite, ['width', 'paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom', 'borderTop', 'letterSpacing',
-                                                'borderLeft', 'borderRight', 'borderBottom', 'lineHeight']);
-        this.hilite.style.minHeight = styles.height;
-        this.hilite.style.whiteSpace = this.isTextArea ? 'pre-wrap' : 'nowrap';
-    }
-
-    #inputHandler() {
-        this.hilite.innerHTML = this.#markText(); 
-        this.#scrollHandler();
-    }
-
-    #copyStyles(src, dest, styles2Copy) {
-        let styles = window.getComputedStyle(src);
-        styles2Copy.forEach((stl) => dest.style[stl] = styles[stl])
-    }
-
-    #markText() { 
-        let txt = this.isTextArea ? this.ele.value : this.ele.textContent;
-        if(this.char_index != null && this.ele_index != null){
-            let txt_arr = txt.split(" ");
-            let originalString = txt_arr[this.ele_index];
-            let re = new RegExp(originalString.substring(0,this.char_index) + '(' + originalString[this.char_index] + ')' +  originalString.substring(this.char_index+1) , 'g' + (this.sensitive ? '' : 'i') );
-            let mark_char = originalString.replace(re,'<mark>$1</mark>');
-            originalString = originalString.replace(/</g, "&lt;").replace(/>/g,"&gt;");
-            txt_arr[this.ele_index] = this.#replaceCharAtIndex(originalString,this.char_index,mark_char);
-            txt = txt_arr.join(' ');
-            return txt;
-        }
-        else{
-            if (this.searchArg) {
-                let re = new RegExp('(' + this.#escapeString(this.searchArg) + ')', 'g' + (this.sensitive ? '' : 'i')); 
-                return txt.replace(re, '<mark>$1</mark>');
-            } else {
-                return txt;
+    markText(cur_char_index,word_count) { 
+        let temp_arr = this.ques_arr.slice();
+        let originalString = temp_arr[word_count];
+        let mark = originalString.substring(0, cur_char_index).replace(/</g, "&lt;").replace(/>/g,"&gt;") 
+            + `<span style="color: ${this.highlight_color};">${originalString[cur_char_index].replace(/</g, "&lt;").replace(/>/g,"&gt;")}</span>` 
+            + originalString.substring(cur_char_index+1).replace(/</g, "&lt;").replace(/>/g,"&gt;");
+        temp_arr[word_count] = mark;
+        for (let i = 0; i < temp_arr.length; i++) {
+            if (i !== word_count) {
+                temp_arr[i] = temp_arr[i].replace(/</g, "&lt;").replace(/>/g,"&gt;");
             }
         }
-    }
-    #replaceCharAtIndex(inputString, index, newChar) {
-        if (index < 0 || index >= inputString.length) {
-          // Index is out of bounds, return the original string
-          return inputString;
-        }
-      
-        // Create a new string with the character replaced at the specified index
-        const resultString = inputString.substring(0, index) + newChar + inputString.substring(index + 1);
-      
-        return resultString;
-      }
-      
-    // Escape a string to be used in a Regex search (replace)
-    #escapeString(txt) {
-        let specials = ['-', '[', ']', '/', '{', '}', '(', ')', '*', '+', '?', '.', '\\', '^', '$', '|'];
-        let regex = RegExp('[' + specials.join('\\') + ']', 'g'); 
-        return txt.replace(regex, '\\$&'); 
-    }
-
-    #scrollHandler() { 
-        this.backdrop.scrollTop = this.ele.scrollTop || 0; 
-        let sclLeft = this.ele.scrollLeft;
-        this.backdrop.style.transform = (sclLeft > 0) ? 'translateX(' + -sclLeft + 'px)' : '';
+        this.ele.innerHTML = temp_arr.join(' ');
     }
 }
-
-// text highligh end
-
 
 // constant declaration
 const { ipcRenderer } = require('electron');
@@ -161,7 +54,6 @@ const h2_fin3 = document.getElementById('Rh3');
 const h2_fin4 = document.getElementById('Rh4');
 const h2_fin5 = document.getElementById('Rh5');
 const highlight_chk = true;
-
 // keyboard const declaration
 const LR1_1 = document.getElementById('LR1_1_2');
 const LR1_2 = document.getElementById('LR1_2_2');
@@ -247,7 +139,7 @@ const RC2 = document.getElementById('RC2_2');
 
 
 // Variable Declaration
-let higlight_back = null;
+// let higlight_back = null;
 let ques_arr = [];
 let ques_arr2= [];
 let ans_arr = [];
@@ -273,6 +165,7 @@ let curr_word_index = 0;
 let instance;
 let prev_light_key;
 let alt_key = [];
+let space_check = false;
 let alt_handle = [false,null];
 let r_switch_key;
 let l_switch_key;
@@ -344,12 +237,14 @@ function exam_length(ex_type,word_file){
     }
     ques_arr = final_ques.split(" ");
     ques_arr2 = final_ques.split(" ");
-    question_txt.value = final_ques;
+    question_txt.innerText = final_ques;
 }
 function highlight_text(){
-    let textHighlight = '';
-    let caseSensitive = true;
-    instance.search(textHighlight,caseSensitive,cur_char_index,word_count);
+    if(!space_check){
+        instance.markText(cur_char_index,word_count);
+    }else{
+        instance.markText(0,word_count+1);
+    }
 }
 function resultSend(){
     window.location.href = "learning.html";
@@ -1008,8 +903,8 @@ ipcRenderer.on('load-page', (event, data) => {
     fetch(sel_obj.file_path)
     .then(response => response.text())
     .then(text => {
-        instance = new textHighlight(question_txt,data.lang)
         exam_length(sel_obj.exam,text);
+        instance = new textHighlight(sel_obj.lang,ques_arr,question_txt,key_color);
         finLight();
         if(data.learn_txt != null){
             ans_txt.value = data.learn_txt;
@@ -1032,21 +927,19 @@ ipcRenderer.on('load-page', (event, data) => {
         }
          
         if(highlight_chk){
-            let textHighlight = '';
-            let caseSensitive = true;
-            instance.search(textHighlight,caseSensitive,cur_char_index,word_count);
-            higlight_back = document.querySelector(".hlta-container");
-            higlight_back.style.fontFamily = sel_obj.ex_font;
-            higlight_back.style.fontSize = fontSize.toFixed(2) + "px";
+            instance.markText(cur_char_index,word_count);
+            // higlight_back = document.querySelector(".hlta-container");
+            // higlight_back.style.fontFamily = sel_obj.ex_font;
+            // higlight_back.style.fontSize = fontSize.toFixed(2) + "px";
             // higlight_back.style.fontSize = sel_obj.fontSize;
         }
         else {
-            higlight_back = document.querySelector(".hlta-container");
-            higlight_back.style.fontFamily = sel_obj.ex_font;
+            // higlight_back = document.querySelector(".hlta-container");
+            // higlight_back.style.fontFamily = sel_obj.ex_font;
             // higlight_back.style.fontSize = fontSize.toFixed(2) + "px";
         }
-        if(ques_arr[word_count][cur_char_index]){
-            alt_tet_handle.innerText = "Press " + ques_arr[word_count][cur_char_index];
+        if(ques_arr2[word_count][cur_char_index]){
+            alt_tet_handle.innerText = "Press " + ques_arr2[word_count][cur_char_index];
         }
         if(alt_handle[0]){
             alt_tet_handle.innerText = "ALT + 0" + charCode; 
@@ -1061,99 +954,51 @@ ipcRenderer.on('load-page', (event, data) => {
 ans_txt.addEventListener('keyup', function(event) {
     delete keysPressed[event.key]; // Remove the released key from the keysPressed object
 });
-ans_txt.addEventListener("input",function(event){
-    if(highlight_chk){
-        highlight_text();
-    }
-    if(keysPressed['Alt']){
-        if(LR5_5.getAttribute('fill') == '#D9D9D9' || LR5_5.getAttribute('fill') == key_color){
-            LR5_5.style.fill = 'gainsboro';
-        }
-        if(cur_char_index < len_ofword){
-            moveToNextFing();
-        }
-        else{
-            word_count++;
-            curr_word_index++;
-            updateCharcheck();
-        }
-        if(highlight_chk){
-            highlight_text();
-        }
-    }
-});
 // event on key press
 ans_txt.addEventListener("keydown",function(event){
-    if(event.key === "Shift" ||event.key === "Alt" || event.key === "Backspace"){
-        keysPressed[event.key] = true; // Add the currently pressed key to the keysPressed object
+    if (event.key !== ques_arr2[curr_word_index][cur_char_index]) {
+        let bool = true;
+        if(event.key === "Shift" ||event.key === "Alt" || event.key === " "){
+            switch(event.key){
+                case "Shift":
+                    if(ques_arr2[curr_word_index][cur_char_index].toUpperCase() === event.key){
+                        bool = false;
+                    }
+                    break;
+                case "Alt":
+                    let charCode = ques_arr2[curr_word_index][cur_char_index].charCodeAt(0);
+                    if(charCode > 126){
+                        bool = false;
+                    }
+                    break;
+                case " ":
+                    if(space_check){
+                        word_count++;
+                        curr_word_index++;
+                        updateCharcheck();
+                        bool = false;
+                        space_check = false;
+                        if(highlight_chk){
+                            highlight_text();
+                        }
+                        return;
+                    }
+                    break;
+            }
+        }
+        if(bool){
+            event.preventDefault();
+            return;
+        }
+    }
+    if(event.key === "Shift" ||event.key === "Alt"){
+        keysPressed[event.key] = true;
     }
     if (firstKeyPress && event.key === " ") {
         examTimer();
         firstKeyPress = false;
     }
-    if(event.keyCode === 8 || event.key === "Backspace"){
-        cur_char_index--;
-        let currentWordStart;
-        let caretPos;
-        let words;
-        let currentWord;
-        caretPos = ans_txt.selectionStart;
-        words = ans_txt.value.substring(0, caretPos).split(" ");
-        currentWord = words[words.length - 1];
-        currentWordStart = ans_txt.value.lastIndexOf(currentWord);
-        if(cur_char_index < len_ofword){
-            curr_char = curr_word[cur_char_index];
-            if (typeof curr_char === 'undefined') {
-                curr_char = " ";
-            }
-            mapFingure(curr_char);
-        }
-        else{
-            curr_word_index++;
-            updateCharcheck();
-            word_count++;
-            if(highlight_chk){
-                highlight_text();
-            }
-        }
-        if (caretPos <= currentWordStart) {
-            event.preventDefault();
-            cur_char_index = 0;
-        }
-        if(highlight_chk){
-            highlight_text();
-
-        }
-    }
-    else if(keysPressed['Shift'] && event.keyCode >=32){
-        if(LR4_1.getAttribute('fill') == '#D9D9D9' || LR4_1.getAttribute('fill') == key_color){
-            LR4_1.style.fill = 'gainsboro';
-        }
-        if(LR4_12.getAttribute('fill') == key_color || LR4_12.getAttribute('fill') == '#D9D9D9'){
-            LR4_12.style.fill = 'gainsboro';
-        }
-        if(cur_char_index < len_ofword){
-            moveToNextFing();
-        }
-        else{
-            word_count++;
-            curr_word_index++;
-            updateCharcheck();
-        }
-        if(highlight_chk){
-            highlight_text();
-        }
-
-    }
-    else if(keysPressed['Shift']){
-        if(LR4_1.getAttribute('fill') == '#D9D9D9' || LR4_1.getAttribute('fill') == key_color){
-            LR4_1.style.fill = 'gainsboro';
-        }
-        if(LR4_12.getAttribute('fill') == key_color || LR4_12.getAttribute('fill') == '#D9D9D9'){
-            LR4_12.style.fill = 'gainsboro';
-        }
-    }
-    else if(keysPressed['Alt']){
+    if(keysPressed['Alt']){
         if(!event.repeat){
             if( Object.keys(keysPressed).length > 1 ){
                 if(alt_handle[0]){
@@ -1163,29 +1008,40 @@ ans_txt.addEventListener("keydown",function(event){
             }
         }
     }
-    else{
-        if(cur_char_index < len_ofword){
-            moveToNextFing();
-        }
-        else{
-            word_count++;
-            curr_word_index++;
-            updateCharcheck();
-        }
-        // if(highlight_chk){
-        //     highlight_text();
-        // }
-    }
-    if(ques_arr[word_count][cur_char_index]){
-        alt_tet_handle.innerText = "Press " + ques_arr[word_count][cur_char_index];
-    }
-    else if(alt_handle[0]){
-        alt_tet_handle.innerText = "ALT + 0" + charCode; 
-    }
-    else{
-        alt_tet_handle = "Press Space";
+    updateChar();
+    printCharInAltText();
+    changeAlt_Shit_key();
+    if(highlight_chk){
+        highlight_text();
     }
 });
+function changeAlt_Shit_key(){
+    if(LR4_1.getAttribute('fill') == '#D9D9D9' || LR4_1.getAttribute('fill') == key_color){
+        LR4_1.style.fill = 'gainsboro';
+    }
+    if(LR4_12.getAttribute('fill') == key_color || LR4_12.getAttribute('fill') == '#D9D9D9'){
+        LR4_12.style.fill = 'gainsboro';
+    }
+}
+function updateChar(){
+    if(cur_char_index < len_ofword-1){
+        moveToNextFing();
+    }else if(cur_char_index === len_ofword-1){
+        space_check = true
+        return;
+    }
+}
+function printCharInAltText(){
+    if(alt_handle[0]){
+        alt_tet_handle.innerText = "ALT + 0" + charCode; 
+    }
+    else if(space_check){
+        alt_tet_handle.innerText = "Press Space";
+    }
+    else{
+        alt_tet_handle.innerText = "Press " + ques_arr2[word_count][cur_char_index];
+    }
+}
 function altMap(char,first_check){
     let charCode = char.charCodeAt(0);
     alt_handle = [true,char];
@@ -1665,7 +1521,7 @@ function altHandle(charCode){
         key.style.fill = key_color;
         prev_light_key = key;
         let fac10 = alt_key.length * 10;
-        let tempCharCode = int(charCode / fac10)
+        let tempCharCode = Math.floor(charCode / fac10);
         if(tempCharCode>=9){
             tempCharCode = tempCharCode%10;
         }

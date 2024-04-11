@@ -70,10 +70,12 @@ html{
 }
 .text-container .box-container .top .top-text #ques_txt{
     width: 98%;
-    height: 90%;
+    height: 50%;
     padding: 10px;
     text-align: justify;
     border: none;
+    font-weight: bold;
+    overflow: scroll;
 }
 .text-container .box-container .top .top-text #text_cont{
     width: 98%;
