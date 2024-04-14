@@ -33,7 +33,7 @@ class selection_opt {
   }
 }
 // package Declaration
-const menuBarVisibility = false;
+const menuBarVisibility = true;
 const nodeIntegration = true;
 const contextIsolation = false;
 const { app, BrowserWindow, ipcMain, dialog ,globalShortcut} = require('electron');
@@ -66,7 +66,7 @@ function createWindow() {
     },
   });
   // Hide the menu bar
-mainWindow.setMenuBarVisibility(menuBarVisibility)
+mainWindow.setMenuBarVisibility(false)
 ipcMain.on('howtotype',(event,sel_lang, sel_time, sel_exam, sel_font, sel_exr,sel_scr,learn_count,learn_txt,learn_char_count) =>{
   try{
     let test_obj = new selection_opt(sel_lang, sel_time, sel_exam, sel_font, sel_exr,learn_count,learn_txt,learn_char_count);
@@ -87,7 +87,7 @@ ipcMain.on('howtotype',(event,sel_lang, sel_time, sel_exam, sel_font, sel_exr,se
         // Hide the menu bar
         popWin.loadFile('learnscr.html');
         if(menuBarVisibility){
-          popWin.setMenuBarVisibility(menuBarVisibility)
+          popWin.setMenuBarVisibility(false)
           popWin.webContents.on('devtools-opened', () => {
             popWin.webContents.closeDevTools();
           });
@@ -117,7 +117,7 @@ ipcMain.on('mistake_popup',(event,request)=>{
     // Hide the menu bar
     popUp.loadFile('popUp.html');
     if(menuBarVisibility){
-      popUp.setMenuBarVisibility(menuBarVisibility)
+      popUp.setMenuBarVisibility(false)
       popUp.webContents.on('devtools-opened', () => {
         popUp.webContents.closeDevTools();
       });
@@ -144,7 +144,7 @@ ipcMain.on('chk_mistake_req', (event,request) =>{
     // Hide the menu bar
     chkWindow.loadFile('chk_mistake.html'); 
     if(menuBarVisibility){
-      chkWindow.setMenuBarVisibility(menuBarVisibility)
+      chkWindow.setMenuBarVisibility(false)
       chkWindow.webContents.on('devtools-opened', () => {
         chkWindow.webContents.closeDevTools();
       });
@@ -160,7 +160,7 @@ ipcMain.on('chk_mistake_req', (event,request) =>{
   // Hide the menu bar
   mainWindow.loadFile('index.html');
   if(menuBarVisibility){
-    mainWindow.setMenuBarVisibility(menuBarVisibility)
+    mainWindow.setMenuBarVisibility(false)
     mainWindow.webContents.on('devtools-opened', () => {
       mainWindow.webContents.closeDevTools();
     });
@@ -199,7 +199,7 @@ ipcMain.on('chk_mistake_req', (event,request) =>{
         }
         // Hide the menu bar
         if(menuBarVisibility){
-          testWindow.setMenuBarVisibility(menuBarVisibility)
+          testWindow.setMenuBarVisibility(false)
           testWindow.webContents.on('devtools-opened', () => {
             testWindow.webContents.closeDevTools();
           });
@@ -219,7 +219,7 @@ ipcMain.on('chk_mistake_req', (event,request) =>{
 app.on('ready', ()=>{
   createWindow();
     globalShortcut.register('CommandOrControl+Shift+I', () => {
-      return menuBarVisibility;
+      return false;
     });
     // Create or open a SQLite database fild
     directoryPath = path.join(app.getPath('userData'), 'database.db');
