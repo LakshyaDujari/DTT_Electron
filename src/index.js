@@ -33,7 +33,7 @@ class selection_opt {
   }
 }
 // package Declaration
-const menuBarVisibility = true;
+const menuBarVisibility = false;
 const nodeIntegration = true;
 const contextIsolation = false;
 const { app, BrowserWindow, ipcMain, dialog ,globalShortcut} = require('electron');

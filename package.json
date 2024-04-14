@@ -45,7 +45,11 @@
         "nsis",
         "zip"
       ]
-    }
+    },
+    "extraResources": [
+      "Exersise",
+      "Paragraph"
+    ]
   },
   "description": "Typing Solutions for Rajasthan Goverment Exam"
 }

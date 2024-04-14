@@ -68,7 +68,16 @@ function exam_length(ex_type,word_file){
             ques_len = ques_len/total_words;
             repeat_bool = true;
         }
-    }else{
+    }else if(ex_type == 'ex2'){
+        ques_len = (40 * parseInt(sel_obj.time))/total_words;
+        if(ques_len>1){
+            repeat_bool = true;            
+        }else{
+            ques_len = 40*parseInt(sel_obj.time);
+            repeat_bool = false;            
+        }
+    }
+    else{
         ques_len = (100 * parseInt(sel_obj.time))/total_words;
         if(ques_len>1){
             repeat_bool = true;            
@@ -76,6 +85,7 @@ function exam_length(ex_type,word_file){
             ques_len = 100*parseInt(sel_obj.time);
             repeat_bool = false;            
         }
+
     }
     if(Number.isInteger(ques_len)){
         if(repeat_bool){
