@@ -538,7 +538,7 @@ ipcRenderer.on('load-page', (event, data) => {
             break;
         case 'ex2':
             back_setting = 1;
-            highlight_chkbox.checked = true;
+            highlight_chkbox.checked = false;
             // setting.style.display = 'none';
             break;
         case 'ex3':

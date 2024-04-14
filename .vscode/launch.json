@@ -5,11 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "name": "Debug Main Process",
+            "type": "node",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "protocol": "inspector",
+            "program": "/Users/lakshyadujari/Desktop/Projects/DTT_New/DTT_Electron/src/index.js",
+            "stopOnEntry": false,
+            "args" : [],
+            "cwd": "/Users/lakshyadujari/Desktop/Projects/DTT_New/DTT_Electron",
+            "runtimeExecutable": "/Users/lakshyadujari/Desktop/Projects/DTT_New/DTT_Electron/node_modules/.bin/electron",
+            "env": {},
+            "console": "integratedTerminal"
         }
     ]
 }

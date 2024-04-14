@@ -24,7 +24,7 @@ const register_btn = document.getElementById("submit");
 
 ipcRenderer.on('info', (event,data) =>{
     if(data!=null){
-        if(data.name != null){
+        if(data.name != null && data.name != ''){
             console.log(data);
             usr_data.name = data.name;
             usr_data.roll_no = data.roll_no;
@@ -35,14 +35,14 @@ ipcRenderer.on('info', (event,data) =>{
             roll_no.value = usr_data.roll_no;
             roll_no.disabled = true;
         }
-        if(data.pub_hash != null){
+        if(data.pub_hash != null && data.pub_hash != '' ){
             usr_data.pub_hash = data.pub_hash;
             usr_data.pri_hash = data.pri_hash;
             request.request = 'pub_hash';
             request.value = usr_data.pub_hash;
             ipcRenderer.send('hex_call', request);
         }
-        if(data.act_conf != null){
+        if(data.act_conf != null && data.act_conf != ''){
             request.request = 'activation_check';
             request.value = data.act_conf;
             ipcRenderer.send('hex_call', request);

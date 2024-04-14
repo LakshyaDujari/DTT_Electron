@@ -49,6 +49,7 @@ const helper = 'tamtob-cibbe6-cakHav';
 let usr_data = new user_data();
 const prof_resp = new main_response();
 let db;
+let directoryPath;
 let mainWindow;
 let testWindow;
 let chkWindow;
@@ -221,8 +222,8 @@ app.on('ready', ()=>{
       return menuBarVisibility;
     });
     // Create or open a SQLite database fild
-    // let directoryPath = path.join(app.getPath('userData'), 'database.db');
-    var directoryPath = path.join(__dirname, "database.db");
+    directoryPath = path.join(app.getPath('userData'), 'database.db');
+    // var directoryPath = path.join(__dirname, "database.db");
     db = new sqlite3.Database(directoryPath,sqlite3.OPEN_READWRITE,async (err) => {
       if (err) {
         console.error('Error opening database:', err.message);
@@ -528,7 +529,6 @@ function reverseNumber(number) {
 }
 async function insert_db(name, roll_num, img_blob, enc_pub_hex, enc_pri_hex, timeStamp, key='',activation='') {
   const id = 1;
-  var directoryPath = path.join(__dirname, "database.db");
   db = new sqlite3.Database(directoryPath,sqlite3.OPEN_READWRITE);
   db.serialize(() => {
     const stmt = db.prepare("INSERT or REPLACE INTO user (id ,name, roll_num, usr_img, pub_hex_profile, pri_hex_profile, timeStamp,key,activation) VALUES (?,?,?,?,?,?,?,?,?)");
