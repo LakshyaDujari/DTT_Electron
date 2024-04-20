@@ -203,12 +203,12 @@ exdrop.addEventListener('change',(e) =>{
     // changes to play the selected file audio for stano also the if condition is also added today
     if(sel_exam == 'ex7'){
         const selitem = e.target.value;
-        const file_path = path.join(__dirname, 'Exercise/Stano/DTC Steno Recording/DTC Steno Recording', selitem);
+        const file_path = path.join(__dirname, '../Exercise/Stano/DTC Steno Recording/DTC Steno Recording', selitem);
         audioPlayer.src = file_path; // Set the audio source to the file path
         audioPlayer.play();
         // Replace ".mp3" with ".docx"
         const modifiedSelitem = selitem.replace(/\.mp3$/, ".docx");
-        sel_exr = path.join(__dirname, 'Exercise/Stano/DTC Steno Word file', modifiedSelitem);
+        sel_exr = path.join(__dirname, '../Exercise/Stano/DTC Steno Word file', modifiedSelitem);
     }
     // changes Complete 31.08.2023
     else{
